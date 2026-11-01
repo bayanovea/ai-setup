@@ -93,7 +93,7 @@ files, index lines without a file. In this mode:
   Style merges and "could be shorter" are not candidates; they only grow the report.
 - Report = counters, fired triggers, mechanical fixes to apply, candidates (file, verdict, evidence),
   and what the user must decide. Write it to the path given in the prompt
-  (`~/AI/claude-setup/reports/memory-audit/YYYY-MM-DD.md`, gitignored), nothing else.
+  (`~/AI/ai-setup-private/claude/memory-audit/YYYY-MM-DD.md`, outside the public repo), nothing else.
 
 ## When to run
 

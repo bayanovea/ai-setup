@@ -3,6 +3,7 @@
 set -euo pipefail
 
 REPO="$(cd "$(dirname "$0")" && pwd)"
+SRC="$REPO/claude"
 CLAUDE="$HOME/.claude"
 mkdir -p "$CLAUDE/hooks" "$CLAUDE/skills"
 
@@ -18,20 +19,21 @@ link() {
   echo "linked $dst -> $src"
 }
 
-link "$REPO/CLAUDE.md" "$CLAUDE/CLAUDE.md"
-for h in "$REPO"/hooks/*.sh; do
+link "$SRC/CLAUDE.md" "$CLAUDE/CLAUDE.md"
+for h in "$SRC"/hooks/*.sh; do
   chmod +x "$h"
   link "$h" "$CLAUDE/hooks/$(basename "$h")"
 done
-for s in "$REPO"/skills/*/; do
+for s in "$SRC"/skills/*/; do
   s="${s%/}"
   link "$s" "$CLAUDE/skills/$(basename "$s")"
 done
 
-mkdir -p "$HOME/AI/english-learning" "${PERF_REVIEW_DIR:-$HOME/Work/perf-review}"
+mkdir -p "$HOME/AI/english-learning" "${PERF_REVIEW_DIR:-$HOME/Work/perf-review}" \
+  "$HOME/AI/ai-setup-private/claude/memory-audit"
 
 cat <<EOF
 
-Done. Now merge settings.snippet.json into ~/.claude/settings.json (hooks + plugin toggles),
+Done. Now merge claude/settings.snippet.json into ~/.claude/settings.json (hooks + plugin toggles),
 then open /hooks once in a running session or restart Claude Code.
 EOF

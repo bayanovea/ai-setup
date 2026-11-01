@@ -3,7 +3,7 @@
 # The mechanical checks are done here (deterministic) and handed to the model in the prompt.
 set -u
 P="$HOME/.claude/projects"
-OUT="$HOME/AI/claude-setup/reports/memory-audit"   # outside ~/.claude: headless writes there are refused
+OUT="$HOME/AI/ai-setup-private/claude/memory-audit"   # outside ~/.claude: headless writes there are refused
 mkdir -p "$OUT"
 last=$(ls -t "$OUT"/*.md 2>/dev/null | head -1)
 if [ -n "$last" ] && [ "$(find "$last" -mtime -13)" ]; then
@@ -34,7 +34,7 @@ checks=$(
 )
 
 echo "$(date '+%F %T') start"
-cd "$HOME/AI/claude-setup" && /opt/homebrew/bin/claude -p "/memory-audit --report
+cd "$(dirname "$(realpath "$0")")/../../.." && /opt/homebrew/bin/claude -p "/memory-audit --report
 
 Previous report: ${last:-none}. Report path: $OUT/$(date +%F).md
 Mechanical checks (already computed; list them in the report, do not edit memory files):
