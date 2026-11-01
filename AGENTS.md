@@ -1,6 +1,6 @@
 # ai-setup — project rules
 
-My setup for AI tools. One top-level folder per tool (`claude/`, later `codex/`, `hermes/`,
+My setup for AI tools. One top-level folder per tool (`claude/`, `hermes/`, later `codex/`,
 `agterm/`); tool-agnostic material (`templates/`, `reference/`) stays at the root.
 
 ## This repo is public
