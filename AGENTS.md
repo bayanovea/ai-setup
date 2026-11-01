@@ -10,10 +10,11 @@ Everything committed here is published. Nothing personally sensitive goes in:
 - secrets, tokens, `.env`, `auth.json` and other credential files;
 - personal data, private correspondence, chat or session transcripts;
 - to-do lists, task boards, calendars;
-- corpora, journals and reports built from my sessions or memory.
+- corpora, journals and reports built from my sessions or memory;
+- my interests, habits and life circumstances, wherever they appear: a profile, a bot's
+  personality (hermes `SOUL.md` stays in `~/.hermes`).
 
-Not sensitive: rules, skills, hooks, prompts, configs without credentials, a bot's personality
-(hermes `SOUL.md`).
+Not sensitive: rules, skills, hooks, prompts, configs without credentials.
 
 - When in doubt, stop and ask before writing or committing it.
 - Before each commit, check the staged diff against the list above.
