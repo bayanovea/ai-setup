@@ -102,4 +102,3 @@ When `AGTERM_ENABLED=1`, use the agterm skill for these cases (always `--target 
 - Dangerous action (migration, deploy, delete, force-push) → `agtermctl ask` with a destructive button.
 - Everything else → plain text. Do not open UI for simple answers.
 - Blocking calls (`ask`, `--block`) wait for the user: run them with a 10-minute Bash timeout.
-- Session name: the `agterm-session-name.sh` hook owns it. Do not rename the session or set its context.
