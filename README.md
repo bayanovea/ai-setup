@@ -21,6 +21,7 @@ and public; the rules for this repo are in `AGENTS.md`.
 | `claude/skills/unit-test-writer` | skill | Behaviour-first unit tests, table-driven, mock at boundaries only |
 | `claude/skills/split-branch-for-review` | skill (manual only) | Rewrites a squash-merged branch into a sequence a reviewer can read top to bottom |
 | `claude/skills/make-text-not-ai` | skill | Strips the AI fingerprint from any text (EN/RU) without changing facts, meaning or register. Three tiers: delete on sight, fix above a density threshold, leave alone; then a shape pass, since detectors weigh structure over words. Marker lists and the source numbers live in `references/` |
+| `claude/recipes/isolated-headless-claude.md` | recipe | Calling `claude -p` from a script on the subscription with none of my rules, hooks, plugins or MCP servers: a dedicated `CLAUDE_CONFIG_DIR` plus the flags that close the remaining leaks (`--bare` needs an API key) |
 | `hermes/docker-compose.yaml` | Hermes gateway | Runs `nousresearch/hermes-agent` with `~/.hermes` as its data volume: `docker compose -f hermes/docker-compose.yaml up -d`. Credentials and the agent's state stay in `~/.hermes`, never here |
 | `templates/AGENTS.md` + `CLAUDE.local.md` | per-repo template | One tool-agnostic rules file read by Claude Code, Codex and OpenCode |
 | `reference/ralphex-roles/` | prompts | Five review roles (implementation, testing, quality, simplification, documentation) usable as subagent prompts in any multi-agent review |
