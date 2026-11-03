@@ -1,13 +1,14 @@
 ---
 name: backlog-parallel
-description: Pick the most important items from a repo's docs/backlog/, brief them, then fix several at once with one isolated git-worktree agent per group. Afterwards merge them into the default branch, run the full test suite, then plan and run the post-deploy prod checks (the user does only the ones that need them). Use when the user asks to choose or summarize important backlog items, asks whether backlog items can run in parallel or in worktrees, says "work the backlog in parallel", "launch these backlog tasks", "/backlog-parallel", or wants a batch of backlog fixes taken through to a merged, tested branch. For one backlog item, or for listing and triaging the backlog, use the backlog skill instead.
+description: Pick the most important items from a repo's docs/backlog/, brief them, then fix several at once with one isolated git-worktree agent per group. Afterwards merge them into the default branch, run the full test suite, then plan and run the post-deploy prod checks (the user does only the ones that need them). Use when the user asks to choose or summarize important backlog items, asks whether backlog items can run in parallel or in worktrees, says "work the backlog in parallel", "launch these backlog tasks", "/backlog-parallel", or wants a batch of backlog fixes taken through to a merged, tested branch. "/backlog-parallel auto", or a request for the backlog items that can be done without the user, runs the same flow in auto mode: the agent picks the items that pass its own autonomy check and stops only before pushing. For one backlog item, or for listing and triaging the backlog, use the backlog skill instead.
 ---
 
 # Backlog in parallel
 
 Takes a batch of `docs/backlog/` items from selection to a merged, tested default branch, with one
 worktree agent per group of items. The user owns two gates: which items to run, and every push. Every
-other step is yours, including how to group the work and every prod check you can run yourself.
+other step is yours, including how to group the work and every prod check you can run yourself. In
+[auto mode](#auto-mode) the first gate is yours too.
 
 This skill orchestrates and does not define the item format. If a `backlog` skill is available (it owns
 `worth`/`where`/`added` and the create-then-delete lifecycle), follow its format rules for any item you
@@ -16,6 +17,33 @@ create, edit or delete. Answer in the user's language. Prompts to subagents are 
 Before starting, read the repo's `CLAUDE.md` and the project memory. Test commands, deploy mechanics,
 host facts and earlier lessons live there, not here. When this skill and the repo disagree, the repo
 wins.
+
+## Auto mode
+
+`/backlog-parallel auto`, or the user asking for what can be done without them. The same run with the
+item gate removed: you pick, launch, merge and test on your own; the user still owns every push.
+
+An item qualifies when all of this holds, checked now against the current code, not taken from the
+item's text:
+- the fix is clear: the body states the approach, and the code confirms it is the right one;
+- the blast radius is small: a few files, no schema, API or config-format change, nothing that changes
+  how the user works;
+- no product or design decision is left;
+- it can be verified locally: a test proves it, or the existing suite covers it. CI, deploy and infra
+  items never qualify.
+
+`auto: yes` in the frontmatter is the filer's judgement that the item qualifies. Treat it as a strong
+signal, not as permission: an `auto: yes` item that fails a check stays out, and you drop the field
+from the item in place with one line on what failed, so the next run does not re-check it (commit that
+edit in Phase 5). An item without the field qualifies only when every check passes without doubt; say
+in the launch message that you promoted it. Priority order and default count are the normal ones.
+
+What changes per phase:
+- Phase 1, steps 4–5: no stop. The list, with one line per item on why it qualifies, and the items you
+  left out with the check they failed, go into the launch message. If nothing qualifies, say so and
+  stop.
+- Phase 3, step 3: merge without asking.
+- Pushing and Phase 4 are unchanged: never push without an explicit yes.
 
 ## Phase 1: Select and brief
 
@@ -39,7 +67,7 @@ wins.
 
    Do not paste the item body back. Also name the items you left out and why (owner-only manual work,
    needs prod, `worth: later`), and any new problem you found while checking.
-5. **Wait for the user's ok.** They answer in plain text: ok, or drop/add items. Do not use
+5. **Wait for the user's ok** (skipped in auto mode). They answer in plain text: ok, or drop/add items. Do not use
    AskUserQuestion for this, and do not launch anything before the ok.
 6. **Parallelism analysis.** Do it yourself and do not ask the user about it. Report the outcome in
    the launch message (Phase 2); the user will object in text if they want something else.
@@ -130,7 +158,7 @@ points you were unsure about.
 2. **A clean merge does not prove a correct result.** Two branches that add the same guard or helper
    at different lines merge without conflict and leave both copies. Show the merged content of every
    file more than one branch touched and read it.
-3. Ask before merging into the default branch. On yes:
+3. Ask before merging into the default branch (not in auto mode). On yes:
    - Bring the commits over in the agreed order. Use cherry-pick when history is linear; otherwise
      follow the repo's convention.
    - Fix duplicates and amend each fix into the commit that introduced it.
