@@ -95,6 +95,21 @@ A plan records the diff that was applied, not the discussion. Before moving a pl
 - Open questions are allowed in a completed plan, in an explicit "Open questions" section.
 - The last task includes `[ ] cleanup pass before commit (residue / transient state / open questions)`.
 
+## Backlog (`docs/backlog/`)
+
+The `backlog` skill owns the item format; its ask-before-append and commit-separately flow applies only
+when I invoke the skill myself. When a task surfaces a problem outside its scope, you decide:
+- Fix it inline when that is quick, cheap or part of the task's substance.
+- File an item when the problem is real and worth keeping, using the skill's format and dedupe. Commit
+  it in the task's own commit, on the task's branch; never ask about committing or pushing it separately.
+- Ask me only when you doubt it is worth filing: one `➜` **From you** line.
+- A minor problem gets neither an item nor a question.
+- Report each filed item as one Aside line:
+  `↳ **Aside** — backlog \`<slug>\` **<gist, 2–4 words>**. <One sentence on the problem.>`
+- Add a fourth frontmatter field, `auto: yes`, when an agent may fix the item without my approval: the
+  fix is clear, the blast radius small, no product or design decision left. The body then states the
+  approach, so a worktree agent implements it instead of guessing. Otherwise omit the field.
+
 ## agterm UI
 
 When `AGTERM_ENABLED=1`, use the agterm skill for these cases (always `--target "$AGTERM_SESSION_ID"`):
