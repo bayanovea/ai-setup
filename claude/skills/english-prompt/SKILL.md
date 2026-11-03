@@ -21,6 +21,8 @@ one append to the corpus; corrections never appear in the reply.
   idiom, register (formal / IT style).
 - If the thought is built differently in natural English, rewrite the sentence, don't patch it word by word.
 - Record real errors only: `wrong → right` + one line why. Don't invent corrections to fill space.
+- The corrections go to the corpus only, never into the reply: no Aside, no footnote, no "by the
+  way". The user reads them through `english-review`.
 
 ## 2. Enrich the prompt
 
