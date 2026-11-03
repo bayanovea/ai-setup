@@ -18,6 +18,7 @@ and public; the rules for this repo are in `AGENTS.md`.
 | `claude/skills/english-review` | skill | Periodic pass over that corpus: error classes, accuracy per class, CEFR rating with evidence, drills built from my own sentences |
 | `claude/skills/save-clear` | skill | `/save-clear`: walks the session, routes durable facts to auto-memory and open work to plans/backlog, reports, then types `/clear` into its own agterm session |
 | `claude/skills/perf-review-log` | skill | Merges significant work into one review artifact without turning it into a log |
+| `claude/skills/backlog-parallel` | skill | Picks the important `docs/backlog/` items, fixes them in parallel with one worktree agent per group, merges, runs the full suite, then plans the post-deploy prod checks. The user gates only the item list and every push |
 | `claude/skills/unit-test-writer` | skill | Behaviour-first unit tests, table-driven, mock at boundaries only |
 | `claude/skills/split-branch-for-review` | skill (manual only) | Rewrites a squash-merged branch into a sequence a reviewer can read top to bottom |
 | `claude/skills/make-text-not-ai` | skill | Strips the AI fingerprint from any text (EN/RU) without changing facts, meaning or register. Three tiers: delete on sight, fix above a density threshold, leave alone; then a shape pass, since detectors weigh structure over words. Marker lists and the source numbers live in `references/` |
