@@ -50,6 +50,19 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.claude/hooks/agterm-name-reset-on-clear.sh\"",
+            "timeout": 10,
+            "async": true
+          }
+        ]
+      }
     ]
   },
   "skillOverrides": {
