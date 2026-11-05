@@ -38,6 +38,12 @@ from the item in place with one line on what failed, so the next run does not re
 edit in Phase 5). An item without the field qualifies only when every check passes without doubt; say
 in the launch message that you promoted it. Priority order and default count are the normal ones.
 
+Check every item, whatever its `worth`: a `later` item with a stated fix can qualify, and finding no
+`auto: yes` field is never a reason to stop (user, 2026-11-04: «проверь сам и проставь auto: yes»).
+For each item you promote, write `auto: yes` into its frontmatter and the approach you verified into
+its body (facts the filer missed, e.g. an edge case the code shows), and commit that before launching,
+so the agent's `git merge --ff-only` brings it in.
+
 What changes per phase:
 - Phase 1, steps 4–5: no stop. The list, with one line per item on why it qualifies, and the items you
   left out with the check they failed, go into the launch message. If nothing qualifies, say so and
@@ -168,7 +174,8 @@ points you were unsure about.
 5. **Clean up.**
    - Confirm the content landed: `git cherry <default> <branch>` should show `-`; an amended commit
      shows `+`.
-   - Then `git worktree remove` and `git branch -D` for each agent.
+   - Then `git worktree remove` and `git branch -D` for each agent. A tree locked with a reason naming
+     this session's own pid is the harness's lock on a finished agent: `git worktree unlock`, then remove.
    - Delete the Docker images the agents' test runs built.
 6. **Pushing.**
    - Never push without an explicit yes; in many repos a push to the default branch is a deploy.
